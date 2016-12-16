@@ -1,0 +1,78 @@
+{% extends "homepage_all.html" %}
+{% block content %}
+    <section id="portfolio" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Thư Viện Cú Mèo</h2>
+                    <div class="w3-section">
+                      <span class="w3-margin-right">Giá:</span>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/nhohon30k">Nhỏ hơn 30k</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/30kden60k">Từ 30k đến 60k</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/lonhon60k">Lớn hơn 60k</a></button>
+                    </div>
+                    <div class="w3-section w3-bottombar w3-padding-bottom">
+                      <span class="w3-margin-right">Thể loại:</span>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/theloai/vanhoc">Văn học</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/theloai/tieuthuyet">Tiểu thuyết</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/theloai/giaotrinh">Giáo trình</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/theloai/tienganh">Tiếng Anh</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/theloai/thamkhao">Tham khảo</a></button>
+                      <button class="w3-btn w3-white"><a href="https://test-2-howly.herokuapp.com/theloai/khac">Khác</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for search in search_list %}
+                    <div class=" col-md-4 col-sm-6 portfolio-item">
+                        <a href="#{{ search.product_id }}" class="portfolio-link" data-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content">
+                                    <i class="fa fa-plus fa-3x"></i>
+                                </div>
+                            </div>
+                            <img src="{{ search.product_image }}" class="img-responsive pic-scale" alt="{{ search.product_image }}">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>{{ search.product_name }}</h4>
+                            <p class="text-muted">{{ search.product_price }}k</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% for search in search_list %}
+        <!-- Portfolio Modal 1 -->
+        <div class="portfolio-modal modal fade" id="{{ search.product_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="modal-body">
+                                    <!-- Project Details Go Here -->
+                                    <h2>{{ search.product_name }}</h2>
+                                    <img class="img-responsive img-centered pic-scale" src="{{ search.product_image }}" alt="{{ search.product_image }}">
+                                    <p>Uploaded by <a href="https://test-2-howly.herokuapp.com/profile/{{ search.user_name }}">{{ search.user_name }}</a></p>
+                                    <p>Contact: {{ search.user_contact }}</p>
+                                    <p>Ngày đăng: {{ search.Time.day }}-{{ search.Time.month }}-{{ search.Time.year }} </p>
+                                    <p>Miêu tả: {{ search.product_description }}</p>
+                                    <p>Thể loại:{{ search.product_type }}</p>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
